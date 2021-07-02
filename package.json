@@ -1,0 +1,43 @@
+{
+  "name": "@efox/react-boundary-loader",
+  "version": "1.0.3",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": "https://github.com/efoxTeam/react-boundary-loader.git",
+  "author": "doerme <398921432@qq.com>",
+  "dependencies": {
+    "@babel/generator": "^7.14.5",
+    "@babel/parser": "^7.14.6",
+    "@babel/template": "^7.14.5",
+    "@babel/traverse": "^7.14.5",
+    "@babel/types": "^7.14.5",
+    "@sentry/react": "^6.7.2",
+    "loader-utils": "^2.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "schema-utils": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "4",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.0.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx,d.ts}": "eslint --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "jest && lint-staged"
+    }
+  }
+}
