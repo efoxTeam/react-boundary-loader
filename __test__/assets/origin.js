@@ -1,7 +1,8 @@
 module.exports = {
-    common:
+  common:
     `
 import React from 'react'
+
 const Hello1 = () => {
   return (
     <>
@@ -38,9 +39,11 @@ const Hello6 = () => {
   )
 }
 export {Hello1, Hello2}
-// export default  {
-//   Hello5, Hello6
-// }
-export default Hello1
+
+export default  {
+  Hello5, Hello6
+}
+
+// export default Hello1
 `
 }

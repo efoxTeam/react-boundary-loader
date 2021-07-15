@@ -1,5 +1,5 @@
 module.exports = {
-    common: 
+  common:
 `
 import React from 'react';
 import * as Sentry from '@sentry/react';
@@ -45,9 +45,12 @@ const Hello6 = () => {
     </>;
 };
 
-export { Hello1, Hello2 }; // export default  {
-//   Hello5, Hello6
-// }
+const Hello1ErrorBoundary=ErrorBoundaryWrap(Hello1,{});
+const Hello2ErrorBoundary=ErrorBoundaryWrap(Hello2,{});
+export {Hello1ErrorBoundary as Hello1,Hello2ErrorBoundary as Hello2};
 
-export default ErrorBoundaryWrap(Hello1, {});`
+export default {Hello5:ErrorBoundary(Hello5),Hello6:ErrorBoundary(Hello6)};
+
+//exportdefaultHello1
+`
 }

@@ -30,8 +30,9 @@ const traverseAst = (parentAstPath, boundaryOption) => {
       }
     },
     ExportSpecifier (path, state) {
-      // console.log(`#path parent:`, path.parent)
+      // console.log('##path parent:', path.parent)
       if (path.parent && path.parent.type === 'ExportNamedDeclaration' && !path.parent.isdeal) {
+        // console.log('###ExportSpecifier')
         // const replaceNode = types.arrayExpression([newNode, path.node]);
         const replaceNodeList = []
         const parentNode = path.parent
@@ -49,12 +50,12 @@ const traverseAst = (parentAstPath, boundaryOption) => {
         newDeclarationNode.isdeal = true
         replaceNodeList.push(newDeclarationNode)
         // console.log('#replaceNodeList:', replaceNodeList)
-        // path.parentPath.replaceWithMultiple(replaceNodeList)
+        path.parentPath.replaceWithMultiple(replaceNodeList)
       }
     },
     ExportDefaultDeclaration (path, state) {
       // console.log('ExportDefaultDeclaration path, state', path, state)
-      // console.log(`##ExportDefaultDeclaration`,path.node)
+      // console.log('##ExportDefaultDeclaration', path?.node?.declaration?.properties)
       if (path?.node?.declaration?.properties && !path?.node?.isdeal) {
         let replaceNodeString = 'export default {'
         let adot = ''
@@ -68,7 +69,6 @@ const traverseAst = (parentAstPath, boundaryOption) => {
         replaceNodeString += '}'
         const newNode = template.statement(replaceNodeString)()
         newNode.isdeal = true
-        // console.log(`newNode`, newNode)
         path.replaceWithMultiple([newNode])
       } else if (path?.node?.declaration?.type === 'Identifier') {
         path.replaceWith(template.statement(`export default ErrorBoundaryWrap(${path?.node?.declaration?.name}, ${JSON.stringify(boundaryOption)})`)())
