@@ -40,7 +40,7 @@ test: /\.(jsx|tsx)$/,
 }
 ```
 
-`ESM`规范下React的组件暴露主要有以下四种方式:
+本loader主要提供`ESM`规范下React的组件暴露的以下四种方式进行代码转换:
 ```javascript
 export default ComponentA // 情况1 export default
 ```
