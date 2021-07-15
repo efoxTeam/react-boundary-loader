@@ -39,3 +39,50 @@ test: /\.(jsx|tsx)$/,
       ]
 }
 ```
+
+`ESM`规范下React的组件暴露主要有以下四种方式:
+```javascript
+export default ComponentA // 情况1 export default
+```
+```javascript
+export default {ComponentA, ComponentB, ComponentC} // 情况2 export default {}
+```
+```javascript
+// 情况3 export const
+export const ComponentA = (props) => {
+ // 组件代码实现
+} 
+```
+```javascript
+export {ComponentA, ComponentB, ComponentC} // 情况4 export {}
+```
+
+转换如下：
+```javascript
+export default ErrorBoundaryWrap(ComponentA) // 情况1
+```
+```javascript
+// 情况2
+export default {
+  ComponentA: ErrorBoundaryWrap(ComponentA), 
+  ComponentB: ErrorBoundaryWrap(ComponentB), 
+  ComponentC: ErrorBoundaryWrap(ComponentC)
+}
+```
+```javascript
+// 情况3
+export const ComponentA = ErrorBoundaryWrap((props) => {
+ // 组件代码实现
+})
+```
+```javascript
+// 情况4
+const ComponentAerrorBoundary = ErrorBoundaryWrap(ComponentA)
+const ComponentBerrorBoundary = ErrorBoundaryWrap(ComponentB)
+const ComponentCerrorBoundary = ErrorBoundaryWrap(ComponentC)
+export {
+  ComponentAerrorBoundary as ComponentA, 
+  ComponentBerrorBoundary as ComponentB, 
+  ComponentCerrorBoundary as ComponentC
+}
+```
