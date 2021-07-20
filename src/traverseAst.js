@@ -25,7 +25,7 @@ const traverseAst = (parentAstPath, boundaryOption) => {
     },
     ArrowFunctionExpression (path, state) {
       if (path.parent.type === 'VariableDeclarator' && path.parentPath.parent.type === 'VariableDeclaration' && path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration') {
-        // console.log(`## VariableDeclarator`, path.toString())
+        // console.log('## VariableDeclarator', path.node.body.body)
         path.replaceWith(template.expression({ plugins: ['jsx'] })(`ErrorBoundaryWrap(${path.toString()}, ${JSON.stringify(boundaryOption)})`)())
       }
     },
@@ -73,6 +73,9 @@ const traverseAst = (parentAstPath, boundaryOption) => {
       } else if (path?.node?.declaration?.type === 'Identifier') {
         path.replaceWith(template.statement(`export default ErrorBoundaryWrap(${path?.node?.declaration?.name}, ${JSON.stringify(boundaryOption)})`)())
       }
+    },
+    JSXFragment (path) {
+      // console.log('###', path.parentPath)
     }
   })
 }
